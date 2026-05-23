@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TN Election 2026 — Supporting Visuals</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root {
+  --bg:       #07101E;
+  --bg2:      #0C1829;
+  --bg3:      #101f35;
+  --border:   rgba(255,255,255,0.07);
+  --tvk:      #00E5A0;
+  --dmk:      #3B9EE8;
+  --admk:     #F05C35;
+  --ntk:      #A68EF5;
+  --inc:      #40C8A8;
+  --bjp:      #F7B731;
+  --text:     #EEF3FF;
+  --muted:    rgba(238,243,255,0.42);
+  --faint:    rgba(238,243,255,0.07);
+  --radius:   14px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Outfit',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:0.6;
+}
+
+/* ── HEADER ── */
+header{
+  position:relative;z-index:10;
+  padding:3rem 4rem 2rem;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:flex-end;justify-content:space-between;
+  background:linear-gradient(180deg,rgba(0,229,160,0.05) 0%,transparent 100%);
+}
+.header-left{}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--tvk);
+  letter-spacing:0.18em;text-transform:uppercase;
+  margin-bottom:10px;display:flex;align-items:center;gap:10px;
+}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--tvk);}
+h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(38px,5vw,64px);
+  letter-spacing:0.04em;line-height:1;
+  background:linear-gradient(135deg,#fff 30%,rgba(255,255,255,0.55));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.header-right{text-align:right;}
+.tag{
+  font-size:12px;color:var(--muted);
+  border:1px solid var(--border);
+  padding:5px 14px;border-radius:20px;
+  font-family:'JetBrains Mono',monospace;
+  letter-spacing:0.06em;
+}
+
+/* ── HERO STATS ── */
+.hero-stats{
+  position:relative;z-index:10;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);
+  border-bottom:1px solid var(--border);
+}
+.hstat{
+  background:var(--bg);
+  padding:1.8rem 2rem;
+  position:relative;overflow:hidden;
+  transition:background 0.3s;
+}
+.hstat:hover{background:var(--bg2);}
+.hstat::after{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:2px;
+  opacity:0;transition:opacity 0.3s;
+}
+.hstat:nth-child(1)::after{background:var(--tvk);}
+.hstat:nth-child(2)::after{background:var(--bjp);}
+.hstat:nth-child(3)::after{background:var(--admk);}
+.hstat:nth-child(4)::after{background:var(--dmk);}
+.hstat:hover::after{opacity:1;}
+.hstat-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:52px;line-height:1;display:block;
+}
+.hstat-label{font-size:13px;color:var(--muted);margin-top:6px;display:block;}
+.hstat-sub{font-size:11px;color:var(--faint);margin-top:4px;font-family:'JetBrains Mono',monospace;}
+
+/* ── SECTION ── */
+.section{
+  position:relative;z-index:10;
+  padding:3rem 4rem;
+}
+.section+.section{border-top:1px solid var(--border);}
+.sec-header{margin-bottom:2rem;}
+.sec-tag{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--tvk);letter-spacing:0.2em;text-transform:uppercase;
+  margin-bottom:8px;display:flex;align-items:center;gap:8px;
+}
+.sec-tag::after{content:'';flex:1;height:1px;background:var(--border);}
+.sec-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(24px,3vw,40px);letter-spacing:0.04em;
+  margin-bottom:4px;
+}
+.sec-sub{font-size:13px;color:var(--muted);}
+
+/* ── GRID LAYOUTS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.g2-1{display:grid;grid-template-columns:2fr 1fr;gap:20px;}
+.g1-2{display:grid;grid-template-columns:1fr 2fr;gap:20px;}
+
+/* ── CHART CARD ── */
+.cc{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:1.6rem;
+  position:relative;overflow:hidden;
+  transition:border-color 0.3s,transform 0.3s;
+}
+.cc:hover{border-color:rgba(255,255,255,0.14);transform:translateY(-2px);}
+.cc-title{font-size:14px;font-weight:600;margin-bottom:3px;}
+.cc-sub{font-size:12px;color:var(--muted);margin-bottom:1.4rem;}
+.cc-wrap{position:relative;}
+
+/* ── INSIGHT ── */
+.insight{
+  background:rgba(0,229,160,0.06);
+  border-left:3px solid var(--tvk);
+  border-radius:0 8px 8px 0;
+  padding:0.9rem 1.1rem;
+  font-size:13px;color:rgba(238,243,255,0.75);
+  line-height:1.65;margin-top:1rem;
+}
+.insight b{color:#fff;font-weight:600;}
+.insight.red{background:rgba(240,92,53,0.06);border-color:var(--admk);}
+.insight.blue{background:rgba(59,158,232,0.06);border-color:var(--dmk);}
+.insight.gold{background:rgba(247,183,49,0.08);border-color:var(--bjp);}
+
+/* ── KPI CARDS ── */
+.kpi{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.4rem;
+  display:flex;flex-direction:column;gap:6px;
+}
+.kpi-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;}
+.kpi-val{font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1;}
+.kpi-change{font-size:12px;font-family:'JetBrains Mono',monospace;}
+
+/* ── FLIP TABLE ── */
+.flip-table{width:100%;border-collapse:collapse;font-size:13px;}
+.flip-table th{
+  font-size:11px;color:var(--muted);font-weight:500;
+  padding:8px 14px;text-align:left;
+  border-bottom:1px solid var(--border);letter-spacing:0.07em;
+}
+.flip-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);}
+.flip-table tr:hover td{background:rgba(255,255,255,0.02);}
+.flip-table tr:last-child td{border-bottom:none;}
+.badge{
+  display:inline-block;padding:3px 10px;
+  border-radius:5px;font-size:12px;font-weight:600;
+}
+.arrow{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'JetBrains Mono',monospace;font-size:12px;
+}
+
+/* ── MARGIN BAR ── */
+.mbar-wrap{margin-top:1rem;}
+.mbar-row{margin-bottom:14px;}
+.mbar-meta{display:flex;justify-content:space-between;margin-bottom:5px;}
+.mbar-label{font-size:12px;color:var(--muted);}
+.mbar-val{font-size:12px;font-weight:600;font-family:'JetBrains Mono',monospace;}
+.mbar-track{background:rgba(255,255,255,0.06);border-radius:4px;height:32px;overflow:hidden;position:relative;}
+.mbar-fill{
+  height:100%;border-radius:4px;
+  display:flex;align-items:center;padding:0 12px;
+  font-size:11px;font-weight:600;color:rgba(255,255,255,0.8);
+  transition:width 1.5s cubic-bezier(.25,.46,.45,.94);
+}
+
+/* ── FOOTER ── */
+footer{
+  position:relative;z-index:10;
+  border-top:1px solid var(--border);
+  padding:1.5rem 4rem;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-left{font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0.08em;font-family:'JetBrains Mono',monospace;}
+.footer-right{font-size:11px;color:rgba(255,255,255,0.2);font-family:'JetBrains Mono',monospace;}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.cc,.kpi,.hstat{animation:fadeUp 0.5s ease both;}
+.cc:nth-child(2){animation-delay:0.1s;}
+.cc:nth-child(3){animation-delay:0.2s;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-left">
+    <div class="eyebrow">AtliQ Media · Data Special · May 2026</div>
+    <h1>Tamil Nadu 2026<br>Election — Data Story</h1>
+  </div>
+  <div class="header-right">
+    <div class="tag">ECI DATA ONLY · NO SPIN · JUST NUMBERS</div>
+  </div>
+</header>
+
+<!-- HERO STATS -->
+<div class="hero-stats">
+  <div class="hstat">
+    <span class="hstat-num" style="color:var(--tvk)">108</span>
+    <span class="hstat-label">TVK Seats Won</span>
+    <span class="hstat-sub">debut election · 2026</span>
+  </div>
+  <div class="hstat">
+    <span class="hstat-num" style="color:var(--bjp)">70%</span>
+    <span class="hstat-label">Constituencies Flipped</span>
+    <span class="hstat-sub">163 out of 234 seats</span>
+  </div>
+  <div class="hstat">
+    <span class="hstat-num" style="color:var(--admk)">35.1%</span>
+    <span class="hstat-label">TVK Vote Share</span>
+    <span class="hstat-sub">from 0% in 2021</span>
+  </div>
+  <div class="hstat">
+    <span class="hstat-num" style="color:var(--dmk)">16,784</span>
+    <span class="hstat-label">Avg Winning Margin</span>
+    <span class="hstat-sub">down 27% from 2021</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     VISUAL 1 — SEAT TALLY
+═════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-tag">Visual 01</div>
+    <div class="sec-title">Seat Tally — 2021 vs 2026</div>
+    <div class="sec-sub">How the assembly changed hands</div>
+  </div>
+
+  <div class="g2">
+    <div class="cc">
+      <div class="cc-title">Seats Won by Party</div>
+      <div class="cc-sub">Grouped comparison — 2021 vs 2026</div>
+      <div class="cc-wrap" style="height:280px">
+        <canvas id="seatTally"></canvas>
+      </div>
+      <div class="insight">
+        <b>TVK</b> went from 0 seats in 2021 to <b>108 seats</b> in 2026 — the single largest party in the new assembly. <b>DMK</b> lost 74 seats, <b>AIADMK</b> lost 19.
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="kpi" style="border-color:rgba(0,229,160,0.25)">
+        <div class="kpi-label">TVK Seats</div>
+        <div class="kpi-val" style="color:var(--tvk)">108</div>
+        <div class="kpi-change" style="color:var(--tvk)">↑ from 0 in 2021</div>
+      </div>
+      <div class="kpi" style="border-color:rgba(59,158,232,0.25)">
+        <div class="kpi-label">DMK Seats</div>
+        <div class="kpi-val" style="color:var(--dmk)">59</div>
+        <div class="kpi-change" style="color:var(--admk)">↓ from 133 in 2021</div>
+      </div>
+      <div class="kpi" style="border-color:rgba(240,92,53,0.25)">
+        <div class="kpi-label">AIADMK Seats</div>
+        <div class="kpi-val" style="color:var(--admk)">47</div>
+        <div class="kpi-change" style="color:var(--admk)">↓ from 66 in 2021</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Others (INC, PMK, VCK...)</div>
+        <div class="kpi-val">20</div>
+        <div class="kpi-change" style="color:var(--muted)">INC 5 · PMK 4 · more</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     VISUAL 2 — VOTE SHARE
+═════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-tag">Visual 02</div>
+    <div class="sec-title">Vote Share Shift — 2021 vs 2026</div>
+    <div class="sec-sub">Where did TVK's 3.5 crore votes come from?</div>
+  </div>
+
+  <div class="cc" style="margin-bottom:20px;">
+    <div class="cc-title">Statewide Vote Share % — All Major Parties</div>
+    <div class="cc-sub">2021 (gray) vs 2026 (colored)</div>
+    <div class="cc-wrap" style="height:300px;">
+      <canvas id="voteShare"></canvas>
+    </div>
+  </div>
+
+  <div class="g3">
+    <div class="cc">
+      <div class="cc-title">Vote Share Change</div>
+      <div class="cc-sub">Percentage point gain / loss</div>
+      <div class="cc-wrap" style="height:220px;">
+        <canvas id="voteChange"></canvas>
+      </div>
+    </div>
+    <div class="cc" style="grid-column:span 2;">
+      <div class="cc-title">The Numbers Behind the Shift</div>
+      <div class="cc-sub">Actual votes gained and lost</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px;">
+        <div style="background:rgba(0,229,160,0.07);border-radius:10px;padding:16px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--tvk)">+3.5Cr</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">TVK votes gained</div>
+        </div>
+        <div style="background:rgba(240,92,53,0.07);border-radius:10px;padding:16px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--admk)">−1.3Cr</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">DMK votes lost</div>
+        </div>
+        <div style="background:rgba(240,92,53,0.07);border-radius:10px;padding:16px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--admk)">−93L</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">AIADMK votes lost</div>
+        </div>
+        <div style="background:rgba(166,142,245,0.07);border-radius:10px;padding:16px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--ntk)">−10.7L</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">NTK votes lost</div>
+        </div>
+      </div>
+      <div class="insight gold" style="margin-top:12px;">
+        <b>Combined opposition collapse:</b> DMK + AIADMK went from <b>71.5%</b> combined vote share in 2021 to <b>45.6%</b> in 2026 — a drop of nearly <b>26 percentage points</b> in a single election cycle.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     VISUAL 3 — CONSTITUENCY FLIPS
+═════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-tag">Visual 03</div>
+    <div class="sec-title">Constituency Flips — 2021 → 2026</div>
+    <div class="sec-sub">163 out of 234 seats changed hands — 70% of the map redrawn</div>
+  </div>
+
+  <div class="g2">
+    <div class="cc">
+      <div class="cc-title">Flipped vs Held</div>
+      <div class="cc-sub">Out of 234 total constituencies</div>
+      <div class="cc-wrap" style="height:240px;">
+        <canvas id="flipDonut"></canvas>
+      </div>
+      <div class="insight red">
+        <b>163 seats flipped</b> — the most volatile single election in Tamil Nadu's recent history. Only <b>71 seats</b> were retained by the same party.
+      </div>
+    </div>
+
+    <div class="cc">
+      <div class="cc-title">Where Did the Flipped Seats Go?</div>
+      <div class="cc-sub">Party-to-party seat transfers</div>
+      <table class="flip-table" style="margin-top:8px;">
+        <thead>
+          <tr>
+            <th>From (2021)</th>
+            <th>To (2026)</th>
+            <th style="text-align:right;">Seats</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span style="color:var(--dmk);font-weight:600;">DMK</span></td>
+            <td><span style="color:var(--tvk);font-weight:600;">TVK</span></td>
+            <td style="text-align:right;"><span class="badge" style="background:rgba(0,229,160,0.15);color:var(--tvk)">65</span></td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--admk);font-weight:600;">AIADMK</span></td>
+            <td><span style="color:var(--tvk);font-weight:600;">TVK</span></td>
+            <td style="text-align:right;"><span class="badge" style="background:rgba(0,229,160,0.15);color:var(--tvk)">26</span></td>
+          </tr>
+          <tr>
+            <td><span style="color:#7F77DD;font-weight:600;">INC</span></td>
+            <td><span style="color:var(--tvk);font-weight:600;">TVK</span></td>
+            <td style="text-align:right;"><span class="badge" style="background:rgba(0,229,160,0.15);color:var(--tvk)">11</span></td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--dmk);font-weight:600;">DMK</span></td>
+            <td><span style="color:var(--admk);font-weight:600;">AIADMK</span></td>
+            <td style="text-align:right;"><span class="badge" style="background:rgba(240,92,53,0.15);color:var(--admk)">22</span></td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--admk);font-weight:600;">AIADMK</span></td>
+            <td><span style="color:var(--dmk);font-weight:600;">DMK</span></td>
+            <td style="text-align:right;"><span class="badge" style="background:rgba(59,158,232,0.15);color:var(--dmk)">15</span></td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--dmk);font-weight:600;">DMK</span></td>
+            <td><span style="color:var(--dmk);font-weight:600;">DMK</span></td>
+            <td style="text-align:right;"><span style="color:var(--muted);font-size:12px;">40 held</span></td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--admk);font-weight:600;">AIADMK</span></td>
+            <td><span style="color:var(--admk);font-weight:600;">AIADMK</span></td>
+            <td style="text-align:right;"><span style="color:var(--muted);font-size:12px;">22 held</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="insight">
+        <b>TVK flipped 102 seats</b> from other parties — 65 from DMK, 26 from AIADMK, 11 from INC — in its very first election.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     VISUAL 4 — REGIONAL BREAKDOWN
+═════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-tag">Visual 04</div>
+    <div class="sec-title">Regional Breakdown — 6 Regions, 6 Stories</div>
+    <div class="sec-sub">TVK's win was uneven — and that's the story</div>
+  </div>
+
+  <div class="g2-1">
+    <div class="cc">
+      <div class="cc-title">Seats by Region & Party — 2026</div>
+      <div class="cc-sub">TVK dominates Metro; Delta & North resist</div>
+      <div class="cc-wrap" style="height:300px;">
+        <canvas id="regional"></canvas>
+      </div>
+      <div class="insight blue">
+        <b>Kongu surprise:</b> AIADMK held 19 seats in 2021 — TVK swept 16 in 2026. &nbsp;·&nbsp; <b>Delta holdout:</b> DMK retained 14/33 seats. &nbsp;·&nbsp; <b>Tightest race:</b> Tiruppattur — TVK won by just <b>1 vote</b>.
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="cc" style="flex:1;">
+        <div class="cc-title">Region Summary</div>
+        <div class="cc-sub" style="margin-bottom:1rem;">Dominant winner per region</div>
+        <table class="flip-table">
+          <thead><tr><th>Region</th><th style="color:var(--tvk)">TVK</th><th style="color:var(--dmk)">DMK</th><th style="color:var(--admk)">ADMK</th></tr></thead>
+          <tbody>
+            <tr><td>Chennai Metro</td><td><span class="badge" style="background:rgba(0,229,160,0.15);color:var(--tvk)">29</span></td><td style="color:var(--muted)">2</td><td style="color:var(--muted)">1</td></tr>
+            <tr><td>South</td><td><span class="badge" style="background:rgba(0,229,160,0.15);color:var(--tvk)">26</span></td><td style="color:var(--muted)">22</td><td style="color:var(--muted)">5</td></tr>
+            <tr><td>Kongu</td><td><span class="badge" style="background:rgba(0,229,160,0.15);color:var(--tvk)">16</span></td><td style="color:var(--muted)">9</td><td style="color:var(--muted)">7</td></tr>
+            <tr><td>North</td><td style="color:var(--muted)">15</td><td style="color:var(--muted)">4</td><td><span class="badge" style="background:rgba(240,92,53,0.15);color:var(--admk)">15</span></td></tr>
+            <tr><td>Central</td><td style="color:var(--muted)">12</td><td style="color:var(--muted)">8</td><td><span class="badge" style="background:rgba(240,92,53,0.15);color:var(--admk)">15</span></td></tr>
+            <tr><td>Delta</td><td style="color:var(--muted)">10</td><td><span class="badge" style="background:rgba(59,158,232,0.15);color:var(--dmk)">14</span></td><td style="color:var(--muted)">4</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     VISUAL 5 — MARGIN COLLAPSE
+═════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-header">
+    <div class="sec-tag">Visual 05</div>
+    <div class="sec-title">The Margin Collapse</div>
+    <div class="sec-sub">A squeezed election — closer than the seat count suggests</div>
+  </div>
+
+  <div class="g2">
+    <div class="cc">
+      <div class="cc-title">Average Winning Margin — 2021 vs 2026</div>
+      <div class="cc-sub">In votes and percentage points</div>
+      <div class="cc-wrap" style="height:240px;">
+        <canvas id="marginBar"></canvas>
+      </div>
+      <div class="insight red">
+        Average margin fell by <b>6,087 votes (↓27%)</b> between 2021 and 2026 — despite a massive seat swing, the actual vote gaps were far narrower.
+      </div>
+    </div>
+
+    <div class="cc">
+      <div class="cc-title">Win Concentration Distribution</div>
+      <div class="cc-sub">How decisively were seats won?</div>
+      <div class="mbar-wrap">
+        <div class="mbar-row">
+          <div class="mbar-meta">
+            <span class="mbar-label">Won with &gt;50% votes — 2021</span>
+            <span class="mbar-val" style="color:var(--dmk)">84 seats</span>
+          </div>
+          <div class="mbar-track">
+            <div class="mbar-fill" id="b1" style="width:0%;background:var(--dmk)">84 seats (36%)</div>
+          </div>
+        </div>
+        <div class="mbar-row">
+          <div class="mbar-meta">
+            <span class="mbar-label">Won with &gt;50% votes — 2026</span>
+            <span class="mbar-val" style="color:var(--tvk)">14 seats</span>
+          </div>
+          <div class="mbar-track">
+            <div class="mbar-fill" id="b2" style="width:0%;background:var(--tvk)">14 seats (6%)</div>
+          </div>
+        </div>
+        <div class="mbar-row" style="margin-top:1.5rem;">
+          <div class="mbar-meta">
+            <span class="mbar-label">Won with &lt;35% votes — 2021</span>
+            <span class="mbar-val" style="color:var(--tvk)">2 seats</span>
+          </div>
+          <div class="mbar-track">
+            <div class="mbar-fill" id="b3" style="width:0%;background:rgba(255,255,255,0.2)">2 seats (&lt;1%)</div>
+          </div>
+        </div>
+        <div class="mbar-row">
+          <div class="mbar-meta">
+            <span class="mbar-label">Won with &lt;35% votes — 2026</span>
+            <span class="mbar-val" style="color:var(--admk)">61 seats</span>
+          </div>
+          <div class="mbar-track">
+            <div class="mbar-fill" id="b4" style="width:0%;background:var(--admk)">61 seats (26%)</div>
+          </div>
+        </div>
+      </div>
+      <div class="insight gold" style="margin-top:1.2rem;">
+        In 2026, <b>61 seats were won with less than 35% of valid votes</b> — in a fragmented field, a split opposition handed TVK the map constituency by constituency.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">SOURCE: ELECTION COMMISSION OF INDIA · RESULTS.ECI.GOV.IN · NON-PARTISAN ANALYSIS</div>
+  <div class="footer-right">AAKASH J · CODEBASICS RPC · MAY 2026</div>
+</footer>
+
+<script>
+// ── GLOBALS ─────────────────────────────────────────────────────────────────
+const G  = 'rgba(255,255,255,0.06)';
+const TK = 'rgba(255,255,255,0.38)';
+const baseOpts = (yLabel='',pct=false) => ({
+  responsive:true, maintainAspectRatio:false,
+  plugins:{ legend:{ display:false } },
+  scales:{
+    x:{ grid:{color:G}, ticks:{color:TK, font:{size:11, family:'Outfit'}} },
+    y:{ grid:{color:G}, ticks:{color:TK, font:{size:11, family:'Outfit'}, callback: v => pct ? v+'%' : v } }
+  }
+});
+
+// ── CHART 1: SEAT TALLY ─────────────────────────────────────────────────────
+new Chart(document.getElementById('seatTally'),{
+  type:'bar',
+  data:{
+    labels:['TVK','DMK','AIADMK','INC','PMK','Others'],
+    datasets:[
+      { label:'2021', data:[0,133,66,18,5,12], backgroundColor:'rgba(255,255,255,0.14)', borderRadius:4, barPercentage:0.72 },
+      { label:'2026', data:[108,59,47,5,4,11], backgroundColor:['#00E5A0','#3B9EE8','#F05C35','#A68EF5','#F7B731','#888'], borderRadius:4, barPercentage:0.72 }
+    ]
+  },
+  options:{
+    ...baseOpts(),
+    plugins:{
+      legend:{ display:true, labels:{ color:TK, font:{size:11}, boxWidth:12, borderRadius:3, padding:16 } },
+      tooltip:{ callbacks:{ label: c => ` ${c.dataset.label}: ${c.parsed.y} seats` } }
+    }
+  }
+});
+
+// ── CHART 2: VOTE SHARE ─────────────────────────────────────────────────────
+new Chart(document.getElementById('voteShare'),{
+  type:'bar',
+  data:{
+    labels:['TVK','DMK','AIADMK','NTK','INC','BJP'],
+    datasets:[
+      { label:'2021', data:[0,38.0,33.5,6.6,4.3,2.6], backgroundColor:'rgba(255,255,255,0.14)', borderRadius:5, barPercentage:0.72 },
+      { label:'2026', data:[35.1,24.3,21.3,4.0,3.4,3.0], backgroundColor:['#00E5A0','#3B9EE8','#F05C35','#A68EF5','#40C8A8','#F7B731'], borderRadius:5, barPercentage:0.72 }
+    ]
+  },
+  options:{
+    ...baseOpts('',true),
+    plugins:{
+      legend:{ display:true, labels:{ color:TK, font:{size:11}, boxWidth:12, borderRadius:3, padding:16 } },
+      tooltip:{ callbacks:{ label: c => ` ${c.dataset.label}: ${c.parsed.y.toFixed(1)}%` } }
+    },
+    scales:{
+      x:{ grid:{color:G}, ticks:{color:TK, font:{size:12,weight:'600',family:'Outfit'}} },
+      y:{ grid:{color:G}, ticks:{color:TK, font:{size:11}, callback: v=>v+'%'}, max:42 }
+    }
+  }
+});
+
+// ── CHART 3: VOTE CHANGE ────────────────────────────────────────────────────
+new Chart(document.getElementById('voteChange'),{
+  type:'bar',
+  data:{
+    labels:['TVK','DMK','AIADMK','NTK','INC','BJP'],
+    datasets:[{
+      label:'Change (pp)',
+      data:[35.1,-13.7,-12.2,-2.6,-0.9,0.4],
+      backgroundColor:['#00E5A0','#F05C35','#F05C35','#F05C35','#F05C35','#3B9EE8'],
+      borderRadius:4
+    }]
+  },
+  options:{
+    ...baseOpts('',true),
+    plugins:{ tooltip:{ callbacks:{ label: c => ` ${c.parsed.y>0?'+':''}${c.parsed.y}pp` } } },
+    scales:{
+      x:{ grid:{color:G}, ticks:{color:TK, font:{size:11}} },
+      y:{ grid:{color:G}, ticks:{color:TK, font:{size:11}, callback: v=>v+'pp'} }
+    }
+  }
+});
+
+// ── CHART 4: FLIP DONUT ─────────────────────────────────────────────────────
+new Chart(document.getElementById('flipDonut'),{
+  type:'doughnut',
+  data:{
+    labels:['Flipped (163)','Held (71)'],
+    datasets:[{
+      data:[163,71],
+      backgroundColor:['#00E5A0','rgba(255,255,255,0.12)'],
+      borderWidth:0,
+      hoverOffset:10
+    }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    cutout:'68%',
+    plugins:{
+      legend:{ position:'bottom', labels:{ color:TK, font:{size:12}, padding:20, boxWidth:12, borderRadius:3 } },
+      tooltip:{ callbacks:{ label: c => ` ${c.label}` } }
+    }
+  }
+});
+
+// ── CHART 5: REGIONAL ────────────────────────────────────────────────────────
+new Chart(document.getElementById('regional'),{
+  type:'bar',
+  data:{
+    labels:['Chennai\nMetro','South','Kongu','North','Central','Delta'],
+    datasets:[
+      { label:'TVK', data:[29,26,16,15,12,10], backgroundColor:'#00E5A0', borderRadius:4, barPercentage:0.8 },
+      { label:'DMK', data:[2,22,9,4,8,14], backgroundColor:'#3B9EE8', borderRadius:4, barPercentage:0.8 },
+      { label:'AIADMK', data:[1,5,7,15,15,4], backgroundColor:'#F05C35', borderRadius:4, barPercentage:0.8 }
+    ]
+  },
+  options:{
+    ...baseOpts(),
+    plugins:{
+      legend:{ display:true, labels:{ color:TK, font:{size:11}, boxWidth:12, borderRadius:3, padding:16 } }
+    },
+    scales:{
+      x:{ grid:{color:G}, ticks:{color:TK, font:{size:10}, maxRotation:0} },
+      y:{ grid:{color:G}, ticks:{color:TK, font:{size:11}, callback: v=>v+' seats'} }
+    }
+  }
+});
+
+// ── CHART 6: MARGIN BAR ──────────────────────────────────────────────────────
+new Chart(document.getElementById('marginBar'),{
+  type:'bar',
+  data:{
+    labels:['2021','2026'],
+    datasets:[{
+      label:'Avg Margin (votes)',
+      data:[22871,16784],
+      backgroundColor:['rgba(59,158,232,0.7)','rgba(0,229,160,0.7)'],
+      borderRadius:6,
+      barPercentage:0.5
+    }]
+  },
+  options:{
+    ...baseOpts(),
+    plugins:{
+      legend:{display:false},
+      tooltip:{ callbacks:{ label: c => ` ${c.parsed.y.toLocaleString()} votes` } }
+    },
+    scales:{
+      x:{ grid:{color:G}, ticks:{color:TK, font:{size:13,weight:'600'}} },
+      y:{ grid:{color:G}, ticks:{color:TK, font:{size:11}, callback: v=>v.toLocaleString()}, max:26000 }
+    }
+  }
+});
+
+// ── ANIMATE BARS ON SCROLL ───────────────────────────────────────────────────
+setTimeout(()=>{
+  document.getElementById('b1').style.width='36%';
+  document.getElementById('b2').style.width='6%';
+  document.getElementById('b3').style.width='1%';
+  document.getElementById('b4').style.width='26%';
+},400);
+</script>
+</body>
+</html>
