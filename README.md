@@ -110,7 +110,7 @@ AtliQ Media is producing a one-hour TV show on the 2026 Tamil Nadu Assembly Elec
 
 - 🏛️ **Election Commission of India** — [results.eci.gov.in](https://results.eci.gov.in)
 - 📚 **Trivedi Centre for Political Data** — 2021 baseline reference
-- 📦 **Codebasics Participant Data Pack** — provided input files
+- 
 
 > ⚠️ **Disclaimer:** This project takes no political position. All analysis is based solely on publicly available ECI data. This is a non-partisan data analysis exercise.
 
@@ -135,7 +135,7 @@ AtliQ Media is producing a one-hour TV show on the 2026 Tamil Nadu Assembly Elec
 
 **Aakash J**
 - 📍 Madurai, Tamil Nadu, India
-- 🔗 [LinkedIn](#) ← *paste your profile link*
+- 🔗 [LinkedIn](#) ← *www.linkedin.com/in/aakashilangovan37*
 
 ---
 
