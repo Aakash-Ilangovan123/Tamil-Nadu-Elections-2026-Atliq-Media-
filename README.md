@@ -116,19 +116,6 @@ AtliQ Media is producing a one-hour TV show on the 2026 Tamil Nadu Assembly Elec
 
 ---
 
-## 🎬 Show Pitch — Suggested Structure
-
-| Segment | Duration | Topic |
-|---------|----------|-------|
-| Open | 5 min | The Scale — 163 Flips in One Night |
-| Segment 1 | 10 min | The Flip Flow — Who Lost What |
-| Segment 2 | 10 min | Where Did the Votes Come From? |
-| Segment 3 | 10 min | Chennai Metro Deep Dive |
-| Segment 4 | 10 min | Kongu & North — The Battlegrounds |
-| Segment 5 | 10 min | Delta & South — The Holdouts |
-| Close | 5 min | The 3 Numbers Recap |
-| **Total** | **60 min** | |
-
 ---
 
 ## 👤 Author
@@ -143,7 +130,7 @@ AtliQ Media is producing a one-hour TV show on the 2026 Tamil Nadu Assembly Elec
 
 **Codebasics Resume Project Challenge**
 Tamil Nadu 2026 Assembly Election Analysis
-💰 Prize: ₹10,000
+
 
 ---
 
