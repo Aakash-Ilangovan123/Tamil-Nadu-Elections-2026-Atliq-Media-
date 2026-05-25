@@ -102,7 +102,7 @@ AtliQ Media is producing a one-hour TV show on the 2026 Tamil Nadu Assembly Elec
 
 ## 🎬 Video Walkthrough
 
-▶️ [Watch on LinkedIn](#) ← *paste your link here after recording*
+▶️ [Watch on LinkedIn](https://drive.google.com/file/d/1Mp17GhvvQ1xXXP7Dnb8bxRCuzrNc_2tB/view?usp=drive_link) ← *paste your link here after recording*
 
 ---
 
